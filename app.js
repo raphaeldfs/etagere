@@ -619,7 +619,7 @@
       const fantomes = [230, 270, 205, 250, 220].map((h, i) => `<span class="dos fantome" style="--h:${h}px;--l:${58 + i * 3}px"></span>`).join("");
       vue().innerHTML = `
         <div class="etagere"><div class="rayon">${fantomes}<a class="dos vide" href="#/ajouter" style="--h:240px;--l:62px">${PLUS}<span>Ajouter</span></a></div></div>
-        <div class="vide-accueil"><h1 class="titre-vue">Ton étagère est vide</h1><a class="bouton principal" href="#/ajouter">Ajouter mes documents</a></div>`;
+        <div class="vide-accueil"><h1 class="titre-vue">Ton étagère est vide</h1>${MODE === "site" && !nuageActif() ? `<a class="bouton principal" href="#/ajouter">Synchroniser cet appareil</a><a class="bouton" href="#/ajouter">Ajouter des documents</a>` : `<a class="bouton principal" href="#/ajouter">Ajouter mes documents</a>`}</div>`;
       return;
     }
     const parDom = doms.map(d => Object.assign({ d }, statsDomaine(d.id)));
@@ -648,6 +648,7 @@
       </div>
       <div class="etagere"><div class="rayon">${dos}<a class="dos vide" href="#/ajouter" style="--h:220px;--l:58px" title="Ajouter des fiches">${PLUS}<span>Ajouter</span></a></div></div>
       ${ERREUR_DEPOT ? `<p class="erreur">${echap(ERREUR_DEPOT)}</p>` : ""}
+      ${MODE === "site" && !nuageActif() ? `<a class="bandeau actif" href="#/ajouter"><span><span class="grand">Synchroniser cet appareil</span><span class="petit">Colle ton code de connexion pour retrouver tes documents</span></span><span class="bouton principal">Connecter</span></a>` : ""}
       ${reprises().length ? `<section class="section"><h2 class="section-titre">Reprendre ma lecture</h2><div class="liste">${reprises().map(e => { const d = infosDomaine(e.domaine), m = P.fiches[e.chemin].marque; return `<a class="reprise-carte" href="${lienFiche(e.chemin)}" data-vers-marque="${echap(e.chemin)}" style="--c:${d.couleur}"><span class="ruban" aria-hidden="true"></span><span class="t">${echap(titreDe(e))}</span><span class="x">${echap((m.x || "").slice(0, 80))}</span><span class="m"><span class="jauge-r"><i style="width:${m.q || 0}%"></i></span>${m.q || 0} %</span></a>`; }).join("")}</div></section>` : ""}
       ${enCours.length ? `<section class="section"><h2 class="section-titre">En cours</h2><div class="liste">${enCours.map(e => caseFiche(e)).join("")}</div></section>` : ""}
       ${file.length ? `<section class="section"><h2 class="section-titre">Ma file de lecture</h2><div class="liste file">${file.map((e, i) => caseFiche(e, { ordre: true, premier: i === 0, dernier: i === file.length - 1 })).join("")}</div></section>` : ""}
@@ -1201,6 +1202,7 @@
         <label class="champ" for="sync-jeton">Jeton d'accès<input id="sync-jeton" type="password" placeholder="github_pat_…" autocomplete="off" spellcheck="false"></label>
         <button class="bouton principal">Connecter</button>
       </form>
+      <button class="bouton principal sync-coller" id="sync-coller" type="button">Coller mon code de connexion</button>
       <details class="sync-code"><summary>J'ai un code de connexion</summary><form class="formulaire" id="sync-form-code"><label class="champ" for="sync-code">Code<input id="sync-code" placeholder="Colle le code ici" autocomplete="off"></label><button class="bouton principal">Connecter</button></form></details>
       <p class="sync-msg" id="sync-msg" hidden></p></section>`;
   }
@@ -1222,6 +1224,14 @@
       const [owner, repo] = d.split("/");
       if (!owner || !repo || !j) { msg.hidden = false; msg.className = "sync-msg erreur"; msg.textContent = "Indique le dépôt sous la forme pseudo/nom, et le jeton."; return; }
       lancer({ owner, repo, jeton: j, branche: "main" });
+    });
+    $("#sync-coller")?.addEventListener("click", async () => {
+      let t = ""; try { t = await navigator.clipboard.readText(); } catch (e) {}
+      const c = lireCode(t);
+      if (c) return lancer(c);
+      msg.hidden = false; msg.className = "sync-msg erreur";
+      msg.textContent = "Aucun code dans le presse-papiers. Copie-le d'abord depuis un appareil déjà connecté (Connecter un autre appareil › Copier le code).";
+      $(".sync-code").open = true;
     });
     $("#sync-form-code")?.addEventListener("submit", ev => { ev.preventDefault(); const c = lireCode($("#sync-code").value); if (!c) { msg.hidden = false; msg.className = "sync-msg erreur"; msg.textContent = "Code illisible."; return; } lancer(c); });
   }

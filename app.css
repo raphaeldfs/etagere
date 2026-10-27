@@ -1195,3 +1195,4 @@ html.liseuse-ouverte body.avec-lecteur .ls-pilule { opacity: 0; pointer-events: 
 .dialogue-qr .attention { color: var(--rate, #c0392b); }
 .qr { width: min(240px, 60vw); margin: 4px auto; background: #fff; padding: 6px; border-radius: 10px; }
 .qr svg { display: block; width: 100%; height: auto; }
+.sync-coller { margin: 4px 0 12px; }

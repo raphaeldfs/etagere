@@ -1,5 +1,5 @@
 // Étagère : fonctionne hors ligne une fois ouvert une première fois.
-const VERSION = "3add029735";
+const VERSION = "ab7c8a3367";
 const COQUILLE = ["./", "index.html", "config.js", "manifest.webmanifest", "app.css", "app.js", "lecteur.js", "logo.js", "icone-192.png", "icone-512.png", "apple-touch-icon.png", "favicon-32.png", "icone.svg"];
 self.addEventListener("install", e => { e.waitUntil(caches.open("etagere-" + VERSION).then(c => c.addAll(COQUILLE)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith("etagere-") && k !== "etagere-" + VERSION).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
