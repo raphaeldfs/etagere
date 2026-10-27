@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Étagère</title>
+<meta name="theme-color" content="#EEF1F3" media="(prefers-color-scheme: light)">
+<meta name="description" content="Mes documents rangés en classeurs, lus dans leur version originale.">
+<meta name="theme-color" content="#111620" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Étagère">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="favicon-32.png" sizes="32x32">
+<link rel="icon" href="icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&display=swap">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="barre" id="barre">
+  <div class="barre-in">
+    <a class="marque" href="#/" id="marque" aria-label="Accueil"></a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#/" data-nav="accueil">Étagère</a>
+      <a href="#/chercher" data-nav="chercher">Chercher</a>
+      <a href="#/progres" data-nav="progres">Progrès</a>
+      <a href="#/ajouter" data-nav="importer">Ajouter</a>
+    </nav>
+    <a class="niveau-mini" href="#/progres" id="niveau-mini" aria-label="Niveau et série"></a>
+  </div>
+</header>
+
+<main id="vue" class="vue" tabindex="-1"></main>
+
+<nav class="onglets" aria-label="Navigation">
+  <a href="#/" data-nav="accueil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h3v16H4zM9 6h3v14H9zM14.2 5.4l2.9-.8 3.9 14.5-2.9.8z"/></svg><span>Étagère</span></a>
+  <a href="#/chercher" data-nav="chercher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3a7 7 0 0 1 5.6 11.2l5.1 5.1-1.4 1.4-5.1-5.1A7 7 0 1 1 10 3zm0 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/></svg><span>Chercher</span></a>
+  <a href="#/progres" data-nav="progres"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10h3v10zm6 0V4h3v16zm6 0v-7h3v7z"/></svg><span>Progrès</span></a>
+  <a href="#/ajouter" data-nav="importer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6z"/></svg><span>Ajouter</span></a>
+</nav>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="config.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="logo.js"></script>
+<script src="lecteur.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

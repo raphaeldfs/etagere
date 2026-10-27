@@ -1,0 +1,17 @@
+{
+  "name": "Étagère",
+  "short_name": "Étagère",
+  "description": "Mes documents rangés en classeurs, lus dans leur version originale.",
+  "lang": "fr",
+  "start_url": "./#/",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#EEF1F3",
+  "theme_color": "#2C49C9",
+  "icons": [
+    { "src": "icone-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icone-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icone-masquable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
