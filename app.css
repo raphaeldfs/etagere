@@ -1,3 +1,4 @@
+[hidden] { display: none !important; }
 /* Étagère : une étagère de livres en tête, une colonne de lecture au gabarit unique, des cartes de révision. */
 :root {
   --papier: #EEF1F3;        /* fond général, gris froid */
